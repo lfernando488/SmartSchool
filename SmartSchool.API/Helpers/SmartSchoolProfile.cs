@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using SmartSchool.API.DTO;
 using SmartSchool.API.Helpers;
+using SmartSchool.API.Models;
 using SmartSchool.WebAPI.Models;
 
 namespace SmartSchool.API.Helper{
@@ -22,6 +23,10 @@ namespace SmartSchool.API.Helper{
 
             CreateMap<AlunoDTO, Aluno>();
             CreateMap<Aluno, AlunoRegistrarDTO>().ReverseMap();
+
+            CreateMap<ProfessorDTO, Professor>();
+            CreateMap<Professor, ProfessorRegistrarDTO>().ReverseMap();
+
         }
 
     }
