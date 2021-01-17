@@ -4,22 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SmartSchool.WebAPI.Models{
+namespace SmartSchool.API.DTO{
+    public class AlunoRegistrarDTO{
 
-    public class Aluno{
-
-        public Aluno(){
-        }
-
-        public Aluno(int id, int matricula, string nome, string sobrenome, string telefone, DateTime dataNasc){
-            this.Id = id;
-            this.Matricula = matricula;
-            this.Nome = nome;
-            this.Sobrenome = sobrenome;
-            this.DataNasc = dataNasc;
-            this.Telefone = telefone;
-
-        }
         public int Id { get; set; }
         public int Matricula { get; set; }
         public string Nome { get; set; }
@@ -29,9 +16,5 @@ namespace SmartSchool.WebAPI.Models{
         public DateTime DataIni { get; set; } = DateTime.Now;
         public DateTime? DataFim { get; set; } = null;
         public bool Ativo { get; set; } = true;
-
-        public IEnumerable<AlunoDisciplina> AlunoDisciplinas { get; set; }
     }
-
-
 }

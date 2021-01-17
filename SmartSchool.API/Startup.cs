@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace SmartSchool.API
 {
@@ -29,20 +30,22 @@ namespace SmartSchool.API
                 context => context.UseSqlite(Configuration.GetConnectionString("Default"))
             );
 
-            // services.AddSingleton<IRepository, Repository>();
-            // services.AddTransient<IRepository, Repository>();
-            services.AddScoped<IRepository, Repository>();
-
-
             //Tratar looping json
             services.AddControllers()
                  .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling =
                     Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            //Informa quais classes herdam de profile (busca das dlls) para realizar o mapeamento
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            // services.AddSingleton<IRepository, Repository>();
+            // services.AddTransient<IRepository, Repository>();
+            services.AddScoped<IRepository, Repository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env){
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
