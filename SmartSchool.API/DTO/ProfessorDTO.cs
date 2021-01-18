@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace SmartSchool.API.DTO{
     public class ProfessorDTO{
+
+        public ProfessorDTO(){ }
+
         public int Id { get; set; }
         public int Registro { get; set; }
         public string Nome { get; set; }

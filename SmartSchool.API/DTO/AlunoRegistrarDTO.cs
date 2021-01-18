@@ -7,7 +7,13 @@ using System.Threading.Tasks;
 namespace SmartSchool.API.DTO{
     public class AlunoRegistrarDTO{
 
+        /// <summary>
+        /// Id unico do aluno para operações no sistema
+        /// </summary>
         public int Id { get; set; }
+        /// <summary>
+        /// Matricula para manutenção academica do registro do aluno
+        /// </summary>
         public int Matricula { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }

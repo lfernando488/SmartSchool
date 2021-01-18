@@ -12,14 +12,22 @@ using System.Threading.Tasks;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SmartSchool.WebAPI.Controllers{
-
+    /// <summary>
+    /// 
+    /// </summary>
     [ApiController]
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class AlunoController : ControllerBase{
 
         private readonly IRepository _repo;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Construtor AlunoController
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <param name="mapper"></param>
         public AlunoController(IRepository repo, IMapper mapper){
             _mapper = mapper;
             _repo = repo;
@@ -27,13 +35,24 @@ namespace SmartSchool.WebAPI.Controllers{
 
         //   public AlunoController(){
         //  }
-
+        
+        /// <summary>
+        /// Metodo responsavel para retornar todos os alunos
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Get(){
             var alunos = _repo.GetAllAlunos(true);
 
             return Ok(_mapper.Map<IEnumerable<AlunoDTO>>(alunos));
         }
+
+        
+        /// <summary>
+        /// metodo responsavel por retornar aluno pelo id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         //  [HttpGet("{id:int}")]
         [HttpGet("{id}")]
@@ -50,6 +69,12 @@ namespace SmartSchool.WebAPI.Controllers{
             return Ok(alunoDto);
         }
 
+        /// <summary>
+        /// Metodo repsonsavel pela criação de novo aluno
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+
         [HttpPost]
         public IActionResult Post(AlunoRegistrarDTO model){
 
@@ -63,6 +88,13 @@ namespace SmartSchool.WebAPI.Controllers{
             return BadRequest("Aluno não cadastrado!");
         }
 
+
+        /// <summary>
+        /// Metodo responsavel por alterar o registro de um aluno
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public IActionResult Put(int id, AlunoRegistrarDTO model){
 
@@ -81,6 +113,12 @@ namespace SmartSchool.WebAPI.Controllers{
             return BadRequest("Aluno não pode ser atualizado!");
         }
 
+        /// <summary>
+        /// Metodo responsavel por alterar parcialmente o registro de um aluno
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPatch("{id}")]
         public IActionResult Patch(int id, AlunoRegistrarDTO model)
         {
@@ -100,6 +138,11 @@ namespace SmartSchool.WebAPI.Controllers{
             return BadRequest("Aluno não pode ser atualizado!");
         }
 
+        /// <summary>
+        /// Metodo responsavel pro remover um aluno
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id){
 
