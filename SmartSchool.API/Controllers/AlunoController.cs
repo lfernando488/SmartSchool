@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartSchool.API.Data;
 using SmartSchool.API.DTO;
+using SmartSchool.API.Helpers;
 using SmartSchool.WebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -41,13 +43,16 @@ namespace SmartSchool.WebAPI.Controllers{
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Get(){
-            var alunos = _repo.GetAllAlunos(true);
+        public async Task<IActionResult> Get([FromQuery]PageParams pageParams){
+            var alunos = await _repo.GetAllAlunosAsync(pageParams, true);
 
-            return Ok(_mapper.Map<IEnumerable<AlunoDTO>>(alunos));
+            var alunosResult = _mapper.Map<IEnumerable<AlunoDTO>>(alunos);
+
+            Response.AddPagination(alunos.currentPage, alunos.pageSize, alunos.totalCount, alunos.totalPages);
+
+            return Ok(alunosResult);
         }
 
-        
         /// <summary>
         /// metodo responsavel por retornar aluno pelo id
         /// </summary>
