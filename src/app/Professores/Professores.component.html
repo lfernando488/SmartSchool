@@ -50,8 +50,12 @@
         <td>{{professor.disciplina}}</td>
         <td>
           <div class="btn-group">
-            <button class="btn btn-sm btn-outline-success" style="margin: 0 2px;">Editar</button>
-            <button class="btn btn-sm btn-outline-danger" style="margin: 0 2px;">Excluir</button>
+            <button
+              class="btn btn-sm btn-outline-success"
+              style="margin: 0 2px;"
+              (click)="openModal(template)">
+                Alunos
+            </button>
           </div>
         </td>
       </tr>
@@ -59,3 +63,17 @@
   </table>
   </div>
 </div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+  </div>
+  <div class="modal-body">
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      Fechar
+    </button>
+  </div>
+</ng-template>
