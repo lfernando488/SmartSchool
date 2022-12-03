@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Professor } from './../models/professor';
 
 @Component({
@@ -9,7 +10,10 @@ import { Professor } from './../models/professor';
 export class ProfessoresComponent implements OnInit {
 
   titulo = "Professores"
-  public professorSelecionado!: Professor | undefined;;
+  public professorSelecionado!: Professor | undefined;
+  public textSimple!: string;
+
+  public professorForm!: FormGroup;
 
   professores = [
     {id: 1, nome : "Carlo", disciplina : 'Matemática'},
@@ -18,13 +22,27 @@ export class ProfessoresComponent implements OnInit {
     {id: 4, nome : "Cida", disciplina : 'Geografia'},
   ]
 
-  constructor() { }
+  constructor(private fb : FormBuilder) {
+    this.createForm();
+   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  public alunoSelect(professor: Professor){
+  createForm(){
+    this.professorForm = this.fb.group({
+      nome : ['', Validators.required],
+      disciplina : ['', Validators.required]
+    });
+  }
+
+  professorSubmit(){
+    console.log(this.professorForm.value);
+  }
+
+  public professorSelect(professor: Professor){
     this.professorSelecionado = professor;
+    this.professorForm.patchValue(professor);
   }
 
   public voltar(){
